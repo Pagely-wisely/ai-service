@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: ai-service
+
+  docker:
+    compose:
+      enabled: false
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/pagely_ai
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/pagely
+#    username: pagely
+#    password: pagely
+#    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+server:
+  port: 19021
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8000/eureka
+
+management:
+  tracing:
+    export:
+      enabled: false
+
+  endpoints:
+    web:
+      exposure:
+        include: health,info,flyway
