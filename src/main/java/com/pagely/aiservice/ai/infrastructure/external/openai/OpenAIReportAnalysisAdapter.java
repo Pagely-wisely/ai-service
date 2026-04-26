@@ -2,8 +2,8 @@ package com.pagely.aiservice.ai.infrastructure.external.openai;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;
 import com.pagely.aiservice.ai.application.dto.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;
 import com.pagely.aiservice.ai.infrastructure.external.openai.dto.OpenAiReportContentAnalysisResponse;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +57,8 @@ public class OpenAIReportAnalysisAdapter implements ReportAnalysisPort {
                     .trim();
 
             Map<String, Object> parsed = objectMapper.readValue(
-                    json, new TypeReference<>() {}
+                    json, new TypeReference<>() {
+                    }
             );
 
             return new OpenAiReportContentAnalysisResponse(

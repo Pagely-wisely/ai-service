@@ -1,7 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.external.openai;
 
 import com.pagely.aiservice.ai.application.port.out.BookProfileGeneratorPort;
-import com.pagely.aiservice.ai.application.dto.command.BookProfileGenerateCommand;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import java.util.List;
 import java.util.Map;

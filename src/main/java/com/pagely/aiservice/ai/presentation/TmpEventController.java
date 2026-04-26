@@ -1,9 +1,9 @@
 package com.pagely.aiservice.ai.presentation;
 
+import com.pagely.aiservice.ai.application.service.BookCreatedService;
 import com.pagely.aiservice.ai.application.service.ReportAnalysisService;
 import com.pagely.aiservice.ai.presentation.dto.BookCreatedDto;
 import com.pagely.aiservice.ai.presentation.dto.ReportCreatedDto;
-import com.pagely.aiservice.ai.application.service.BookCreatedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,14 +18,15 @@ public class TmpEventController {
     private final ReportAnalysisService reportCreatedService;
     private final BookCreatedService bookCreatedService;
 
+    // TODO: event로 전환 필요
     @GetMapping
-    public String handleReportCreated(@ModelAttribute ReportCreatedDto dto){
+    public String handleReportCreated(@ModelAttribute ReportCreatedDto dto) {
         reportCreatedService.handleReportCreated(dto.toCommand());
         return "success";
     }
 
     @GetMapping("/book")
-    public String handleBookCreated(@ModelAttribute BookCreatedDto dto){
+    public String handleBookCreated(@ModelAttribute BookCreatedDto dto) {
         bookCreatedService.handleBookCreated(dto.toCommand());
         return "success";
     }

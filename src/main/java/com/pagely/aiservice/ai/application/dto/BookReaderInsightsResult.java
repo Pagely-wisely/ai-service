@@ -1,6 +1,5 @@
 package com.pagely.aiservice.ai.application.dto;
 
-import java.util.List;
 import java.util.Map;
 
 public record BookReaderInsightsResult(
@@ -8,4 +7,5 @@ public record BookReaderInsightsResult(
         int totalReviews,
         Map<String, Double> sentimentDistribution,
         Map<String, Long> topKeywords
-) {}
+) {
+}

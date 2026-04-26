@@ -6,4 +6,5 @@ public record BookProfileGenerateCommand(
         String author,
         String category,
         String description
-) {}
+) {
+}

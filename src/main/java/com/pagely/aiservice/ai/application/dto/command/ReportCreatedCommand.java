@@ -2,7 +2,7 @@ package com.pagely.aiservice.ai.application.dto.command;
 
 import java.util.UUID;
 
-public record ReportCreatedCommand (
+public record ReportCreatedCommand(
         String bookId,
         String title,
         String author,
@@ -11,5 +11,5 @@ public record ReportCreatedCommand (
         UUID userId,
         UUID reportId,
         String reportContent
-){
+) {
 }

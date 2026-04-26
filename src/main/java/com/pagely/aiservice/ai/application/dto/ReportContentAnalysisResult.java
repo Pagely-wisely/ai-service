@@ -7,5 +7,5 @@ public record ReportContentAnalysisResult(
         List<String> renormalized,
         String summarized,
         String sentiment
-){
+) {
 }

@@ -41,7 +41,7 @@ public class BookReportStatisticsService {
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
-                        LinkedHashMap::new  // 정렬 순서 유지
+                        LinkedHashMap::new
                 ));
 
         return new BookReaderInsightsResult(

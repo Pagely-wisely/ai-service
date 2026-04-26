@@ -8,7 +8,7 @@ public record BookCreatedDto(
         String title,
         String author,
         String description
-){
+) {
     public BookProfileGenerateCommand toCommand() {
         return new BookProfileGenerateCommand(bookId, categoryId, title, author, description);
     }

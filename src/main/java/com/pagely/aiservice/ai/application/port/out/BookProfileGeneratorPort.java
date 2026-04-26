@@ -1,6 +1,5 @@
 package com.pagely.aiservice.ai.application.port.out;
 
-import com.pagely.aiservice.ai.application.dto.command.BookProfileGenerateCommand;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import java.util.List;
 
