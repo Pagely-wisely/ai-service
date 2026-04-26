@@ -10,6 +10,6 @@ public record BookCreatedDto(
         String description
 ) {
     public BookProfileGenerateCommand toCommand() {
-        return new BookProfileGenerateCommand(bookId, categoryId, title, author, description);
+        return new BookProfileGenerateCommand(bookId, title, author, categoryId, description);
     }
 }
