@@ -62,7 +62,6 @@ CREATE TABLE p_report_analysis
 );
 
 -- 조회 성능을 위한 인덱스
-CREATE INDEX idx_p_report_analysis_report_id ON p_report_analysis (report_id);
 CREATE INDEX idx_p_report_analysis_book_id   ON p_report_analysis (book_id);
 CREATE INDEX idx_p_report_analysis_sentiment ON p_report_analysis (sentiment);
 
