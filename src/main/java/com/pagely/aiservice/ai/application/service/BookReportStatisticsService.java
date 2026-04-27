@@ -33,7 +33,9 @@ public class BookReportStatisticsService {
 
         // 상위 키워드 추출
         Map<String, Long> topKeywords = analysisList.stream()
-                .flatMap(a -> a.getKeywordNormalized() != null ? a.getKeywordNormalized().stream() : Stream.empty())
+                .filter(a -> a.getKeywordNormalized() != null)
+                .flatMap(a -> a.getKeywordNormalized().stream())
+                .filter(k -> k != null && !k.isBlank())
                 .collect(Collectors.groupingBy(k -> k, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
