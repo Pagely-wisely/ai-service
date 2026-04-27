@@ -1,0 +1,43 @@
+package com.pagely.aiservice.ai.application.service;
+
+import com.pagely.aiservice.ai.application.dto.command.BookProfileGenerateCommand;
+import com.pagely.aiservice.ai.application.port.out.BookEmbeddingPort;
+import com.pagely.aiservice.ai.application.port.out.BookProfileGeneratorPort;
+import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
+import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class BookCreatedService {
+    private final ReportAnalysisRepository reportAnalysisRepository;
+
+    private final BookProfileGeneratorPort bookProfileGeneratorPort;
+    private final BookEmbeddingPort bookEmbeddingPort;
+
+    public void handleBookCreated(BookProfileGenerateCommand dto) {
+        List<ReportAnalysis> analysisList = reportAnalysisRepository.findByBookId(dto.bookId());
+
+        String profileText = bookProfileGeneratorPort.generate(dto.bookId(), dto.title(), dto.author(), dto.category(),
+                dto.description(), analysisList);
+
+        validateProfileText(dto, profileText);
+
+        bookEmbeddingPort.embedBookProfileText(dto.bookId(), profileText);
+    }
+
+    private static void validateProfileText(BookProfileGenerateCommand dto, String profileText) {
+        if (isEmptyProfileText(profileText)) {
+            throw new IllegalStateException("생성된 도서 프로필 텍스트가 비어 있습니다. bookId=" + dto.bookId());
+        }
+    }
+
+    private static boolean isEmptyProfileText(String profileText) {
+        return profileText == null || profileText.isBlank();
+    }
+
+}
