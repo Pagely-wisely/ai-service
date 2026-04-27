@@ -25,6 +25,15 @@ public class BookCreatedService {
         String profileText = bookProfileGeneratorPort.generate(dto.bookId(), dto.title(), dto.author(), dto.category(),
                 dto.description(), analysisList);
 
+        validateProfileText(dto, profileText);
+
         bookEmbeddingPort.embedBookProfileText(dto.bookId(), profileText);
     }
+
+    private static void validateProfileText(BookProfileGenerateCommand dto, String profileText) {
+        if (profileText == null || profileText.isBlank()) {
+            throw new IllegalStateException("생성된 도서 프로필 텍스트가 비어 있습니다. bookId=" + dto.bookId());
+        }
+    }
+
 }
