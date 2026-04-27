@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class BookReportStatisticsService {
 
         // 상위 키워드 추출
         Map<String, Long> topKeywords = analysisList.stream()
-                .flatMap(a -> a.getKeywordNormalized().stream())
+                .flatMap(a -> a.getKeywordNormalized() != null ? a.getKeywordNormalized().stream() : Stream.empty())
                 .collect(Collectors.groupingBy(k -> k, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
