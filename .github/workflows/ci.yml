@@ -34,7 +34,7 @@ jobs:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       GPR_USER: ${{ secrets.GPR_USER }}
-      GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
+      GPR_KEY: ${{ secrets.GPR_KEY }}
 
     steps:
       - name: Checkout source code
