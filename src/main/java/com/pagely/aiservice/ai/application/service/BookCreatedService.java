@@ -31,9 +31,13 @@ public class BookCreatedService {
     }
 
     private static void validateProfileText(BookProfileGenerateCommand dto, String profileText) {
-        if (profileText == null || profileText.isBlank()) {
+        if (isEmptyProfileText(profileText)) {
             throw new IllegalStateException("생성된 도서 프로필 텍스트가 비어 있습니다. bookId=" + dto.bookId());
         }
+    }
+
+    private static boolean isEmptyProfileText(String profileText) {
+        return profileText == null || profileText.isBlank();
     }
 
 }
