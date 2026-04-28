@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class UserProfileService {
     private final UserSearchHistoryRepository userSearchHistoryRepository;
     private final ReportAnalysisRepository reportAnalysisRepository;
 
-    //may event, 호출시점은 3개의 이벤트가 발생할 때
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void generateUserProfile(UUID userId) {
         List<UserLikedBook> likedBooks = userLikedBookRepository.findByUserId(userId);
         List<UserSearchHistory> userSearchHistories = userSearchHistoryRepository.findByUserId(userId);
