@@ -58,4 +58,17 @@ public class ReportAnalysis extends BaseEntity {
         this.sentiment = sentiment;
         this.summaryText = summaryText;
     }
+
+    // 추가해야할 필드
+    // 유저아이디
+    @Column(nullable = false)
+    private UUID userId;
+    // 책 제목
+    private String bookTitle;
+
+    // 책 카테고리
+    private String bookCategory;
+
+    // 책 저자
+    private String author;
 }
