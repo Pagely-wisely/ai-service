@@ -30,6 +30,10 @@ public class ReportAnalysisService {
                 .keywordNormalized(result.renormalized())
                 .sentiment(result.sentiment())
                 .summaryText(result.summarized())
+                .userId(command.userId())
+                .bookTitle(command.title())
+                .bookCategory(command.category())
+                .author(command.author())
                 .build();
 
         reportAnalysisRepository.save(reportAnalysis);
@@ -41,5 +45,7 @@ public class ReportAnalysisService {
                 command.category(),
                 command.description()
         ));
+
+        eventPublisher.publish((new UserProfileTextUpdateEvent(command.userId())));
     }
 }

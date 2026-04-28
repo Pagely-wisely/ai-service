@@ -29,7 +29,13 @@ public class ReportAnalysis extends BaseEntity {
     @Column(nullable = false)
     private UUID reportId;
 
+    @Column(nullable = false)
+    private UUID userId;
+
     private String bookId;
+    private String bookTitle;
+    private String bookCategory;
+    private String author;
 
     @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb")
@@ -46,29 +52,24 @@ public class ReportAnalysis extends BaseEntity {
 
     @Builder
     private ReportAnalysis(UUID reportId,
+                           UUID userId,
                            String bookId,
+                           String bookTitle,
+                           String bookCategory,
+                           String author,
                            List<String> keywordOriginal,
                            List<String> keywordNormalized,
                            String sentiment,
                            String summaryText) {
         this.reportId = reportId;
+        this.userId = userId;
         this.bookId = bookId;
+        this.bookTitle = bookTitle;
+        this.bookCategory = bookCategory;
+        this.author = author;
         this.keywordOriginal = keywordOriginal;
         this.keywordNormalized = keywordNormalized;
         this.sentiment = sentiment;
         this.summaryText = summaryText;
     }
-
-    // 추가해야할 필드
-    // 유저아이디
-    @Column(nullable = false)
-    private UUID userId;
-    // 책 제목
-    private String bookTitle;
-
-    // 책 카테고리
-    private String bookCategory;
-
-    // 책 저자
-    private String author;
 }
