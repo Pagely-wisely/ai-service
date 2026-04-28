@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface UserLikedBookRepository {
 
     List<UserLikedBook> findByUserId(UUID userId);
+
+    void save(UserLikedBook userLikedBook);
 }

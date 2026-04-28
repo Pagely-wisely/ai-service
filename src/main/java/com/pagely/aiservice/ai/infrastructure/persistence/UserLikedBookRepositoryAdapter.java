@@ -11,10 +11,15 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserLikedBookRepositoryAdapter implements UserLikedBookRepository {
 
-    private final UserLikedBookRepository userLikedBookRepository;
+    private final UserLikedBookJpaRepository userLikedBookJpaRepository;
 
     @Override
     public List<UserLikedBook> findByUserId(UUID userId) {
-        return userLikedBookRepository.findByUserId(userId);
+        return userLikedBookJpaRepository.findByUserId(userId);
+    }
+
+    @Override
+    public void save(UserLikedBook userLikedBook) {
+        userLikedBookJpaRepository.save(userLikedBook);
     }
 }

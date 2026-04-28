@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface UserSearchHistoryRepository {
 
     List<UserSearchHistory> findByUserId(UUID userId);
+
+    void save(UserSearchHistory userSearchHistory);
 }

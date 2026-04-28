@@ -17,4 +17,9 @@ public class UserSearchHistoryRepositoryAdapter implements UserSearchHistoryRepo
     public List<UserSearchHistory> findByUserId(UUID userId) {
         return userSearchHistoryJpaRepository.findByUserId(userId);
     }
+
+    @Override
+    public void save(UserSearchHistory userSearchHistory) {
+        userSearchHistoryJpaRepository.save(userSearchHistory);
+    }
 }
