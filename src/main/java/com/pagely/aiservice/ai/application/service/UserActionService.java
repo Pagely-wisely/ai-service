@@ -10,6 +10,7 @@ import com.pagely.aiservice.ai.domain.repository.UserSearchHistoryRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class UserActionService {
     private final UserSearchHistoryRepository userSearchHistoryRepository;
     private final DomainEventPublisher eventPublisher;
 
+    @Transactional
     public void handleBookLiked(BookLikedCommand bookLikedCommand) {
         UserLikedBook userLikedBook = UserLikedBook.builder()
                 .userId(bookLikedCommand.userId())
@@ -33,6 +35,7 @@ public class UserActionService {
         publishUserProfileTextUpdateEvent(bookLikedCommand.userId());
     }
 
+    @Transactional
     public void handleBookSearched(BookSearchedCommand bookSearchedCommand) {
         UserSearchHistory userSearchHistory = UserSearchHistory.builder()
                 .userId(bookSearchedCommand.userId())
