@@ -2,9 +2,11 @@ package com.pagely.aiservice.ai.infrastructure.external.openai;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pagely.aiservice.ai.application.dto.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
 import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;
+import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.infrastructure.external.openai.dto.OpenAiReportContentAnalysisResponse;
+import com.pagely.common.exception.BusinessException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.ai.chat.client.ChatClient;
@@ -68,7 +70,7 @@ public class OpenAIReportAnalysisAdapter implements ReportAnalysisPort {
                     (String) parsed.get("sentiment")
             );
         } catch (Exception e) {
-            throw new RuntimeException("OpenAI 응답 파싱 실패: " + raw, e);
+            throw new BusinessException(AiErrorCode.OPENAI_KEYWORD_PARSING_FAILED, e);
         }
     }
 

@@ -1,11 +1,11 @@
 package com.pagely.aiservice.ai.presentation;
 
-import com.pagely.aiservice.ai.application.BookRecommendationService;
-import com.pagely.aiservice.ai.application.dto.BookReaderInsightsResult;
+import com.pagely.aiservice.ai.application.service.BookRecommendationService;
 import com.pagely.aiservice.ai.application.service.BookReportStatisticsService;
-import java.util.List;
+import com.pagely.common.response.ApiResponse;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +20,12 @@ public class AiController {
     private final BookRecommendationService bookRecommendationService;
 
     @GetMapping("/{book_id}/report-statistics")
-    public BookReaderInsightsResult getReportStatistics(@PathVariable("book_id") String bookId) {
-        return bookReportStatisticsService.execute(bookId);
+    public ResponseEntity<ApiResponse> getReportStatistics(@PathVariable("book_id") String bookId) {
+        return ApiResponse.ok(bookReportStatisticsService.execute(bookId));
     }
 
     @GetMapping("/recommend/book/{user_id}")
-    public List<String> recommendBook(@PathVariable("user_id") UUID userId) {
-        return bookRecommendationService.recommend(userId);
+    public ResponseEntity<ApiResponse> recommendBook(@PathVariable("user_id") UUID userId) {
+        return ApiResponse.ok(bookRecommendationService.recommend(userId));
     }
 }

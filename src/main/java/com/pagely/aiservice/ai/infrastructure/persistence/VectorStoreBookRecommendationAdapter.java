@@ -1,8 +1,10 @@
 package com.pagely.aiservice.ai.infrastructure.persistence;
 
 import com.pagely.aiservice.ai.application.port.out.BookRecommendationPort;
+import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
+import com.pagely.common.exception.BusinessException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -46,7 +48,7 @@ public class VectorStoreBookRecommendationAdapter implements BookRecommendationP
                     """, String.class, userId.toString());
         } catch (EmptyResultDataAccessException e) {
             log.warn("유저 프로필 없음 userId: {}", userId);
-            return null;
+            throw new BusinessException(AiErrorCode.USER_PROFILE_NOT_FOUND, e);
         }
     }
 
