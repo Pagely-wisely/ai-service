@@ -53,24 +53,6 @@ CREATE INDEX idx_p_report_analysis_sentiment    ON p_report_analysis (sentiment)
 
 CREATE INDEX idx_p_report_analysis_keyword_original   ON p_report_analysis USING GIN (keyword_original);
 CREATE INDEX idx_p_report_analysis_keyword_normalized ON p_report_analysis USING GIN (keyword_normalized);
-
--- =========================================
--- AI 로그
--- =========================================
-CREATE TABLE p_ai_log (
-                          id UUID PRIMARY KEY,
-                          question VARCHAR(255),
-                          content VARCHAR(255),
-                          purpose VARCHAR(255),
-
-                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          created_by UUID,
-                          updated_at TIMESTAMP,
-                          updated_by UUID,
-                          deleted_at TIMESTAMP,
-                          deleted_by UUID
-);
-
 -- =========================================
 -- 유저 활동
 -- =========================================
@@ -85,7 +67,8 @@ CREATE TABLE p_user_liked_book (
                                    category    VARCHAR(100),
                                    description TEXT,
 
-                                   CONSTRAINT pk_user_liked_book PRIMARY KEY (id)
+                                   CONSTRAINT pk_user_liked_book PRIMARY KEY (id),
+                                   CONSTRAINT uk_user_liked_book_user_book UNIQUE (user_id, book_id)
 );
 
 CREATE TABLE p_user_search_history (
