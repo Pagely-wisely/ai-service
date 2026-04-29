@@ -10,7 +10,7 @@ spring:
     import: optional:classpath:.env[.properties]
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${AI_DB_NAME}
+    url: jdbc:postgresql://${DB_HOST}:${DB_AI_PORT}/${AI_DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -28,6 +28,26 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+
+    consumer:
+      group-id: ai-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.pagely.aiservice.*"
+        spring.json.type.mapping: >
+          book-created:com.pagely.aiservice.ai.infrastructure.messaging.event.BookCreatedEvent,
+          book-liked:com.pagely.aiservice.ai.infrastructure.messaging.event.BookLikedEvent,
+          book-searched:com.pagely.aiservice.ai.infrastructure.messaging.event.BookSearchedEvent
 
   ai:
     vectorstore:
