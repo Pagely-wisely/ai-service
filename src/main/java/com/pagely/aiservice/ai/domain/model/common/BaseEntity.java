@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.common;
+package com.pagely.aiservice.ai.domain.model.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

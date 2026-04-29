@@ -1,12 +1,11 @@
 package com.pagely.aiservice.ai.infrastructure.external.openai;
 
 import com.pagely.aiservice.ai.application.port.UserProfileGeneratorPort;
-import com.pagely.aiservice.ai.domain.UserLikedBook;
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserLikedBook;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;

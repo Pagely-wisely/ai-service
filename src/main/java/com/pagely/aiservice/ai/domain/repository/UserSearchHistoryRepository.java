@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.domain.repository;
 
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import java.util.List;
 import java.util.UUID;
 

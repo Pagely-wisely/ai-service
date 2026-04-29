@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.application;
+package com.pagely.aiservice.ai.application.service;
 
 import com.pagely.aiservice.ai.application.port.out.BookRecommendationPort;
 import java.util.List;
@@ -13,7 +13,6 @@ public class BookRecommendationService {
     private final BookRecommendationPort bookRecommendationPort;
 
     public List<String> recommend(UUID userId) {
-        List<String> bookIds = bookRecommendationPort.recommend(userId);
-        return bookIds;
+        return bookRecommendationPort.recommend(userId);
     }
 }

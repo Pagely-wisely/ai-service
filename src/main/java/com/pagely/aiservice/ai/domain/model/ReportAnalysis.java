@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.domain.model;
 
-import com.pagely.aiservice.ai.common.BaseEntity;
+import com.pagely.aiservice.ai.domain.model.common.BaseEntity;
 import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

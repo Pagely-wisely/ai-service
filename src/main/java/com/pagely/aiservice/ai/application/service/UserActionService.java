@@ -2,9 +2,10 @@ package com.pagely.aiservice.ai.application.service;
 
 import com.pagely.aiservice.ai.application.dto.command.BookLikedCommand;
 import com.pagely.aiservice.ai.application.dto.command.BookSearchedCommand;
+import com.pagely.aiservice.ai.application.event.UserProfileTextUpdateEvent;
 import com.pagely.aiservice.ai.application.port.out.DomainEventPublisher;
-import com.pagely.aiservice.ai.domain.UserLikedBook;
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserLikedBook;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import com.pagely.aiservice.ai.domain.repository.UserLikedBookRepository;
 import com.pagely.aiservice.ai.domain.repository.UserSearchHistoryRepository;
 import java.util.UUID;
@@ -37,14 +38,14 @@ public class UserActionService {
 
     @Transactional
     public void handleBookSearched(BookSearchedCommand bookSearchedCommand) {
-        UserSearchHistory userSearchHistory = UserSearchHistory.builder()
-                .userId(bookSearchedCommand.userId())
-                .bookId(bookSearchedCommand.bookId())
-                .title(bookSearchedCommand.title())
-                .author(bookSearchedCommand.author())
-                .category(bookSearchedCommand.category())
-                .searchKeyword(bookSearchedCommand.searchKeyword())
-                .build();
+        UserSearchHistory userSearchHistory = UserSearchHistory.from(
+                bookSearchedCommand.userId(),
+                bookSearchedCommand.bookId(),
+                bookSearchedCommand.title(),
+                bookSearchedCommand.author(),
+                bookSearchedCommand.category(),
+                bookSearchedCommand.searchKeyword()
+        );
 
         userSearchHistoryRepository.save(userSearchHistory);
         publishUserProfileTextUpdateEvent(bookSearchedCommand.userId());

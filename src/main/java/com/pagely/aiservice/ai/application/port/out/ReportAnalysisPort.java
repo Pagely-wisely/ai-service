@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.application.port.out;
 
-import com.pagely.aiservice.ai.application.dto.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
 
 public interface ReportAnalysisPort {
 

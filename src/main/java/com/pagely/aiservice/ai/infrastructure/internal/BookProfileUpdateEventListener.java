@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.internal;
 
-import com.pagely.aiservice.ai.application.dto.ReportAnalysisCompletedEvent;
+import com.pagely.aiservice.ai.application.event.ReportAnalysisCompletedEvent;
 import com.pagely.aiservice.ai.application.service.BookProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

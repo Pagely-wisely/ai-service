@@ -3,8 +3,10 @@ package com.pagely.aiservice.ai.application.service;
 import com.pagely.aiservice.ai.application.dto.command.BookProfileGenerateCommand;
 import com.pagely.aiservice.ai.application.port.out.BookEmbeddingPort;
 import com.pagely.aiservice.ai.application.port.out.BookProfileGeneratorPort;
+import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
+import com.pagely.common.exception.BusinessException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class BookCreatedService {
 
     private static void validateProfileText(BookProfileGenerateCommand dto, String profileText) {
         if (isEmptyProfileText(profileText)) {
-            throw new IllegalStateException("생성된 도서 프로필 텍스트가 비어 있습니다. bookId=" + dto.bookId());
+            throw new BusinessException(AiErrorCode.BOOK_PROFILE_TEXT_NOT_GENERATED, "[BOOK] " + dto.bookId());
         }
     }
 

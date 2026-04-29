@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.application.dto;
+package com.pagely.aiservice.ai.application.event;
 
 public record ReportAnalysisCompletedEvent(
         String bookId,

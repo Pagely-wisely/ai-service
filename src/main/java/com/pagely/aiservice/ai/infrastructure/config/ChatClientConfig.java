@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.config;
+package com.pagely.aiservice.ai.infrastructure.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ChatClientConfig {
 
-    // 독후감 분석용 - 기존 코드에서 사용
     @Bean
     @Qualifier("reportAnalysisChatClient")
     public ChatClient reportAnalysisChatClient(ChatClient.Builder builder) {
@@ -21,7 +20,6 @@ public class ChatClientConfig {
                 .build();
     }
 
-    // 도서 프로필 텍스트 생성용
     @Bean
     @Qualifier("bookProfileChatClient")
     public ChatClient bookProfileChatClient(ChatClient.Builder builder) {

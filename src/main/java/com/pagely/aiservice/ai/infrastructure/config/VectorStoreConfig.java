@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.config;
+package com.pagely.aiservice.ai.infrastructure.config;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.VectorStore;

@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.application.dto;
+package com.pagely.aiservice.ai.application.dto.result;
 
 import java.util.Map;
 

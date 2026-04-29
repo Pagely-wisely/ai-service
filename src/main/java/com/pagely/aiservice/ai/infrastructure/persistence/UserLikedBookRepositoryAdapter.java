@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.persistence;
 
-import com.pagely.aiservice.ai.domain.UserLikedBook;
+import com.pagely.aiservice.ai.domain.model.UserLikedBook;
 import com.pagely.aiservice.ai.domain.repository.UserLikedBookRepository;
 import java.util.List;
 import java.util.UUID;

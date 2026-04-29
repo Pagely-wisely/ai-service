@@ -1,6 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.persistence;
 
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import com.pagely.aiservice.ai.domain.repository.UserSearchHistoryRepository;
 import java.util.List;
 import java.util.UUID;

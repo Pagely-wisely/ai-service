@@ -1,7 +1,7 @@
 package com.pagely.aiservice.ai.infrastructure.internal;
 
 import com.pagely.aiservice.ai.application.service.UserProfileService;
-import com.pagely.aiservice.ai.application.service.UserProfileTextUpdateEvent;
+import com.pagely.aiservice.ai.application.event.UserProfileTextUpdateEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
