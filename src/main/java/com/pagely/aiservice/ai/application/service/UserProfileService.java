@@ -2,8 +2,8 @@ package com.pagely.aiservice.ai.application.service;
 
 import com.pagely.aiservice.ai.application.port.UserEmbeddingPort;
 import com.pagely.aiservice.ai.application.port.UserProfileGeneratorPort;
-import com.pagely.aiservice.ai.domain.UserLikedBook;
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserLikedBook;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
 import com.pagely.aiservice.ai.domain.repository.UserLikedBookRepository;

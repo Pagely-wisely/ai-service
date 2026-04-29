@@ -1,7 +1,8 @@
 package com.pagely.aiservice.ai.application.service;
 
-import com.pagely.aiservice.ai.application.dto.ReportAnalysisCompletedEvent;
-import com.pagely.aiservice.ai.application.dto.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.event.ReportAnalysisCompletedEvent;
+import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.event.UserProfileTextUpdateEvent;
 import com.pagely.aiservice.ai.application.dto.command.ReportCreatedCommand;
 import com.pagely.aiservice.ai.application.port.out.DomainEventPublisher;
 import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;

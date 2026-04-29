@@ -1,7 +1,7 @@
 package com.pagely.aiservice.ai.application.port;
 
-import com.pagely.aiservice.ai.domain.UserLikedBook;
-import com.pagely.aiservice.ai.domain.UserSearchHistory;
+import com.pagely.aiservice.ai.domain.model.UserLikedBook;
+import com.pagely.aiservice.ai.domain.model.UserSearchHistory;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import java.util.List;
 

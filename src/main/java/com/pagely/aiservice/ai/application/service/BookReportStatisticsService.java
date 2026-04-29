@@ -1,13 +1,12 @@
 package com.pagely.aiservice.ai.application.service;
 
-import com.pagely.aiservice.ai.application.dto.BookReaderInsightsResult;
+import com.pagely.aiservice.ai.application.dto.result.BookReaderInsightsResult;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

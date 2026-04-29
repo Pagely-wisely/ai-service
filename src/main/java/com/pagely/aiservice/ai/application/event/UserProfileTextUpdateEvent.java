@@ -1,4 +1,4 @@
-package com.pagely.aiservice.ai.application.service;
+package com.pagely.aiservice.ai.application.event;
 
 import java.util.UUID;
 
