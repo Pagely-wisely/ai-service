@@ -1,7 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.external.openai;
 
 import com.pagely.aiservice.ai.application.port.UserEmbeddingPort;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +17,7 @@ public class OpenAiUserEmbeddingAdapter implements UserEmbeddingPort {
     public OpenAiUserEmbeddingAdapter(@Qualifier("userVectorStore") VectorStore vectorStore) {
         this.vectorStore = vectorStore;
     }
+
     @Override
     public void update(UUID userId, String profileText) {
         // 기존 벡터 삭제
@@ -27,7 +27,7 @@ public class OpenAiUserEmbeddingAdapter implements UserEmbeddingPort {
         Document document = new Document(
                 String.valueOf(userId),
                 profileText,
-                Map.of("profileText", profileText)
+                Map.of("userId", userId, "profileText", profileText)
         );
         vectorStore.add(List.of(document));
     }
@@ -39,9 +39,7 @@ public class OpenAiUserEmbeddingAdapter implements UserEmbeddingPort {
         Document document = new Document(
                 String.valueOf(userId),
                 profileText,
-                Map.of(
-                        "profileText", profileText
-                )
+                Map.of("userId", userId, "profileText", profileText)
         );
         vectorStore.add(List.of(document));
     }

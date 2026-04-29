@@ -1,0 +1,197 @@
+### 너의 나쁜 무리
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791172133924&categoryId=소설/시/희곡&title=너의 나쁜 무리&author=예소연
+
+###어머니 내게 오시네
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791141615444&categoryId=에세이&title=어머니 내게 오시네&author=아룬다티 로이
+
+### 작별하지 않는다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788954682152&categoryId=소설/시/희곡&title=작별하지 않는다&author=한강
+
+### 제미나이 주식투자
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791140718368&categoryId=경제경영&title=제미나이 주식투자&author=조성호
+
+### 달걀의 온기
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788936439934&categoryId=소설/시/희곡&title=달걀의 온기&author=김혜진
+
+### 급류
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788937473401&categoryId=소설/시/희곡&title=급류&author=정대건
+
+### 박태웅의 AI 강의 2026
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791157848676&categoryId=경제경영&title=박태웅의 AI 강의 2026&author=박태웅
+
+### GV 빌런 고태경
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791141615987&categoryId=소설/시/희곡&title=GV 빌런 고태경&author=정대건
+
+### 카프네
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791167376237&categoryId=소설/시/희곡&title=카프네&author=아베 아키코
+
+### 왕과 사는 남자 각본집
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791190738705&categoryId=예술/대중문화&title=왕과 사는 남자 각본집&author=황성구.장항준
+
+### 나의 완벽한 장례식
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791124038192&categoryId=소설/시/희곡&title=나의 완벽한 장례식&author=조현선
+
+### 라면 사면 과학 드립니다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194636816&categoryId=어린이&title=라면 사면 과학 드립니다&author=정윤선
+
+### 숨은 어린이 찾기
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788936429645&categoryId=에세이&title=숨은 어린이 찾기&author=김소영
+
+### 세종의 나라 1
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791167764119&categoryId=소설/시/희곡&title=세종의 나라 1&author=김진명
+
+### 2026 이동기 영어 실전동형 모의고사 Vol.2
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791199858909&categoryId=수험서/자격증&title=2026 이동기 영어 실전동형 모의고사 Vol.2&author=이동기
+
+### 김재우의 기본 동사 100
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194368854&categoryId=외국어&title=김재우의 기본 동사 100&author=김재우
+
+### 비실비실 선생님 12
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142350184&categoryId=만화/라이트노벨&title=비실비실 선생님 12&author=후쿠치 카미오
+
+### 위버멘쉬
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791192372730&categoryId=인문학&title=위버멘쉬&author=프리드리히 니체
+
+### ETS 토익 기출문제집 1000 Vol.5 Reading
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788917243802&categoryId=외국어&title=ETS 토익 정기시험 기출문제집 1000 Vol. 5 Reading&author=ETS
+
+### ETS 토익 기출문제집 1000 Vol.5 Listening
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788917243796&categoryId=외국어&title=ETS 토익 정기시험 기출문제집 1000 Vol. 5 Listening&author=ETS
+
+### 세종의 나라 2
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791167764126&categoryId=소설/시/희곡&title=세종의 나라 2&author=김진명
+
+### 삶으로 다시 날아오르기
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791193866498&categoryId=인문학&title=삶으로 다시 날아오르기&author=빌헬름 슈미트
+
+### 코스모스
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788983711892&categoryId=과학&title=코스모스&author=칼 세이건
+
+### 약속의 세대
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791141615819&categoryId=소설/시/희곡&title=약속의 세대&author=백온유
+
+### 할 수 있다! AI 주식 투자
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194322245&categoryId=경제경영&title=할 수 있다! AI 주식 투자&author=머신러너
+
+### 지도로 보아야 보인다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788993178302&categoryId=사회과학&title=지도로 보아야 보인다&author=에밀리 오브리
+
+### 황천의 츠가이 10
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142350160&categoryId=만화/라이트노벨&title=황천의 츠가이 10&author=아라카와 히로무
+
+### 영어 단어의 톤과 의미 차이
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791171012398&categoryId=외국어&title=영어 단어의 톤과 의미 차이&author=LJ쌤(이진)
+
+### 이병한의 테크노-차이나 탐문
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194413707&categoryId=인문학&title=이병한의 테크노-차이나 탐문&author=이병한
+
+### 찍히지 않습니다 5
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791138490238&categoryId=만화/라이트노벨&title=찍히지 않습니다 5&author=코노시마 루카
+
+### 돈의 심리학
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791168343443&categoryId=경제경영&title=돈의 심리학&author=모건 하우절
+
+### 반딧불이의 혼례 10
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142819025&categoryId=만화/라이트노벨&title=반딧불이의 혼례 10&author=타치바나 오레코
+
+### 최소한의 삼국지
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791193401583&categoryId=인문학&title=최소한의 삼국지&author=최태성
+
+### 돈 주운 자의 최후
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788949162683&categoryId=어린이&title=돈 주운 자의 최후&author=이여민
+
+### 사춘기 엄마의 오장육부
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791124497029&categoryId=에세이&title=사춘기 엄마의 오장육부&author=나민애
+
+### 매니저의 나날 2
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142349522&categoryId=만화/라이트노벨&title=매니저의 나날 2&author=야마모토 소이치로
+
+### 해커스 토익 기출 VOCA
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788965422785&categoryId=외국어&title=해커스 토익 기출 VOCA&author=David Cho
+
+### 소년이 온다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788936434120&categoryId=소설/시/희곡&title=소년이 온다&author=한강
+
+### 긴긴밤
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788954677158&categoryId=어린이&title=긴긴밤&author=루리
+
+### 엄마가 유령이 되었어!
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788955823509&categoryId=유아&title=엄마가 유령이 되었어!&author=노부미
+
+### 김재우의 기초 영어회화 100
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791198854384&categoryId=외국어&title=김재우의 기초 영어회화 100&author=김재우
+
+### 진보를 위한 주식투자
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791173576577&categoryId=경제경영&title=진보를 위한 주식투자&author=이광수
+
+### 모든 것은 결정되어 있다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791141609603&categoryId=과학&title=모든 것은 결정되어 있다&author=로버트 M. 새폴스키
+
+### 2027 설보연 SANTA 교육학 단권화
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194798156&categoryId=수험서/자격증&title=2027 설보연 SANTA 교육학 단권화&author=설보연
+
+### 디그 잇 1
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791141182533&categoryId=만화/라이트노벨&title=디그 잇 1&author=Yoshidamaru
+
+### 2026~2027 이진욱 세무사의 공무원 지방세법 기출플러스
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791124262467&categoryId=수험서/자격증&title=2026~2027 이진욱 세무사의 공무원 지방세법 기출플러스&author=이진욱
+
+### 스스로 공부하는 아이는 이렇게 키웁니다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791199555181&categoryId=좋은부모&title=스스로 공부하는 아이는 이렇게 키웁니다&author=이은경
+
+### 유치원WARS 16
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142819278&categoryId=만화/라이트노벨&title=유치원WARS 16&author=You Chiba
+
+### 불안
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788956605593&categoryId=에세이&title=불안&author=알랭 드 보통
+
+### 은하수를 여행하는 히치하이커를 위한 안내서 1
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788970134796&categoryId=소설/시/희곡&title=은하수를 여행하는 히치하이커를 위한 안내서 1&author=더글러스 애덤스
+
+### 죽은 왕녀를 위한 파반느
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791171715503&categoryId=소설/시/희곡&title=죽은 왕녀를 위한 파반느&author=박민규
+
+### 내 이름은 빨강 1
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788937479793&categoryId=소설/시/희곡&title=내 이름은 빨강 1&author=오르한 파묵
+
+### 운동하면 좋은 걸 누가 모르냐고요
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791124336830&categoryId=인문학&title=운동하면 좋은 걸 누가 모르냐고요&author=하주원
+
+### 손절사회
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791167742827&categoryId=사회과학&title=손절사회&author=이승연
+
+### 큰별쌤 최태성의 별별한국사
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791138932943&categoryId=수험서/자격증&title=큰별쌤 최태성의 별별한국사&author=최태성
+
+### 2026 최신개정 ADsP 데이터분석 준전문가
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791193672389&categoryId=컴퓨터/모바일&title=2026 최신개정 ADsP 데이터분석 준전문가&author=윤종식
+
+### 꼬랑지네 떡집
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788949162690&categoryId=어린이&title=꼬랑지네 떡집&author=김리리
+
+### 권력중독
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791124073285&categoryId=인문학&title=권력중독&author=카르스텐 셰르물리
+
+### K-9 경시청 공안부 공안제9과 이능력 대책반 1
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791142350122&categoryId=만화/라이트노벨&title=K-9 경시청 공안부 공안제9과 이능력 대책반 1&author=오쿠야마 테츠야
+
+### 해변의 묘지
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788937475566&categoryId=소설/시/희곡&title=해변의 묘지&author=폴 발레리
+
+### JLPT 한권으로 끝내기 N3
+GET http://localhost:19021/api/v1/tmp/book?bookId=9788927713357&categoryId=외국어&title=JLPT 한권으로 끝내기 N3&author=이치우
+
+### 삶을 의미 있게 만들어주는 일상의 철학
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791171210404&categoryId=인문학&title=삶을 의미 있게 만들어주는 일상의 철학&author=오이겐 M. 슐라크
+
+### 영화, 장르를 넘나들다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791193539156&categoryId=예술/대중문화&title=영화, 장르를 넘나들다&author=황석영
+
+### 일본 광고 카피 도감
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791199555112&categoryId=에세이&title=일본 광고 카피 도감&author=오하림
+
+### 주식으로 부자됩시다
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791194353492&categoryId=경제경영&title=주식으로 부자됩시다&author=박세익
+
+### 기획된 내란
+GET http://localhost:19021/api/v1/tmp/book?bookId=9791197802386&categoryId=사회과학&title=기획된 내란&author=이희천
