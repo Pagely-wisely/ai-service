@@ -1,9 +1,9 @@
 package com.pagely.aiservice.ai.application.service;
 
-import com.pagely.aiservice.ai.application.event.ReportAnalysisCompletedEvent;
-import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
-import com.pagely.aiservice.ai.application.event.UserProfileTextUpdateEvent;
 import com.pagely.aiservice.ai.application.dto.command.ReportCreatedCommand;
+import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
+import com.pagely.aiservice.ai.application.event.ReportAnalysisCompletedEvent;
+import com.pagely.aiservice.ai.application.event.UserProfileTextUpdateEvent;
 import com.pagely.aiservice.ai.application.port.out.DomainEventPublisher;
 import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
@@ -47,6 +47,8 @@ public class ReportAnalysisService {
                 command.description()
         ));
 
-        eventPublisher.publish((new UserProfileTextUpdateEvent(command.userId())));
+        eventPublisher.publish(new UserProfileTextUpdateEvent(
+                command.userId()
+        ));
     }
 }
