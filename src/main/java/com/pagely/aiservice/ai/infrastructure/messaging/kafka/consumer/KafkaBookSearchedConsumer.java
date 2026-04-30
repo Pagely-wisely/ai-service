@@ -1,5 +1,7 @@
 package com.pagely.aiservice.ai.infrastructure.messaging.kafka.consumer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagely.aiservice.ai.application.dto.command.BookSearchedCommand;
 import com.pagely.aiservice.ai.application.service.UserActionService;
 import com.pagely.aiservice.ai.infrastructure.messaging.event.BookSearchedEvent;
@@ -14,12 +16,14 @@ import org.springframework.stereotype.Component;
 public class KafkaBookSearchedConsumer {
 
     private final UserActionService userActionService;
+    private final ObjectMapper objectMapper;
 
     @KafkaListener(
             topics = "book-searched",
             groupId = "ai-service"
     )
-    public void consume(BookSearchedEvent event) {
+    public void consume(String strEvent) throws JsonProcessingException {
+        BookSearchedEvent event = objectMapper.readValue(strEvent, BookSearchedEvent.class);
 
         log.info("BookSearchedEvent 수신: {}", event.getDomainId());
 

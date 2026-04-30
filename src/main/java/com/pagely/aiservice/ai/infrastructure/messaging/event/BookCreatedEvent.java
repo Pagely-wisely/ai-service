@@ -1,8 +1,10 @@
 package com.pagely.aiservice.ai.infrastructure.messaging.event;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class BookCreatedEvent {
 
     private String eventId;
@@ -11,6 +13,7 @@ public class BookCreatedEvent {
     private Payload payload;
 
     @Getter
+    @NoArgsConstructor
     public static class Payload {
         private String bookId;
         private String title;
