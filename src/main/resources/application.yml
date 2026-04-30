@@ -35,19 +35,13 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.add.type.headers: true
+        spring.json.add.type.headers: false
 
     consumer:
-      group-id: ai-service-group
+      group-id: ai-service
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "com.pagely.aiservice.*"
-        spring.json.type.mapping: >
-          book-created:com.pagely.aiservice.ai.infrastructure.messaging.event.BookCreatedEvent,
-          book-liked:com.pagely.aiservice.ai.infrastructure.messaging.event.BookLikedEvent,
-          book-searched:com.pagely.aiservice.ai.infrastructure.messaging.event.BookSearchedEvent
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
   ai:
     vectorstore:
