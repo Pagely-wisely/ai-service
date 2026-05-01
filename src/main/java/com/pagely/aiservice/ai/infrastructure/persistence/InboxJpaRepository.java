@@ -5,7 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InboxJpaRepository extends JpaRepository<Inbox, String> {
 
-    Inbox save(Inbox inbox);
-
     boolean existsByEventId(String eventId);
 }
