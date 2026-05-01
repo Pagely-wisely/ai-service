@@ -5,7 +5,9 @@ import com.pagely.aiservice.ai.application.dto.command.BookSearchedCommand;
 import com.pagely.aiservice.ai.application.service.BookCreatedService;
 import com.pagely.aiservice.ai.application.service.ReportAnalysisService;
 import com.pagely.aiservice.ai.application.service.UserActionService;
+import com.pagely.aiservice.ai.application.service.UserProfileService;
 import com.pagely.aiservice.ai.presentation.dto.BookCreatedDto;
+import com.pagely.aiservice.ai.presentation.dto.PersonaCreateDto;
 import com.pagely.aiservice.ai.presentation.dto.ReportCreatedDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +25,8 @@ public class TmpEventController {
     private final ReportAnalysisService reportCreatedService;
     private final BookCreatedService bookCreatedService;
     private final UserActionService userActionService;
+    private final UserProfileService userProfileService;
 
-    // TODO: event로 전환 필요
     @GetMapping
     public String handleReportCreated(@ModelAttribute ReportCreatedDto dto) {
         reportCreatedService.handleReportCreated(dto.toCommand());
@@ -47,5 +49,10 @@ public class TmpEventController {
     public String handleUserBookSearched(@RequestBody BookSearchedCommand command) {
         userActionService.handleBookSearched(command);
         return "success";
+    }
+
+    @PostMapping("/user/persona")
+    public void generatePersonaProfile(@RequestBody PersonaCreateDto dto) {
+        userProfileService.generatePersonaProfile(dto);
     }
 }
