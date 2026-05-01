@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagely.aiservice.ai.application.dto.command.BookLikedCommand;
 import com.pagely.aiservice.ai.application.service.UserActionService;
+import com.pagely.aiservice.ai.common.InboxIdempotent;
 import com.pagely.aiservice.ai.infrastructure.messaging.event.BookLikedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class KafkaBookLikedConsumer {
             topics = "book-liked",
             groupId = "ai-service"
     )
+    @InboxIdempotent(topic = "book-liked")
     public void consume(String strEvent) throws JsonProcessingException {
 
         BookLikedEvent event = objectMapper.readValue(strEvent, BookLikedEvent.class);
