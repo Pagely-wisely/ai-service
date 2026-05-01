@@ -25,7 +25,7 @@ public class ChatClientConfig {
     public ChatClient bookProfileChatClient(ChatClient.Builder builder) {
         return builder
                 .defaultOptions(OpenAiChatOptions.builder()
-                        .model("gpt-4o")
+                        .model("gpt-4o-mini")
                         .temperature(0.7)
                         .build())
                 .build();
