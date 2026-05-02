@@ -20,27 +20,28 @@ public class OpenAIBookEmbeddingAdapter implements BookEmbeddingPort {
 
     @Override
     public void embedBookProfileText(String bookId, String profileText) {
-        embed(bookId, profileText);
-    }
-
-    public void embed(String bookId, String profileText) {
-        String uuid = UUID.nameUUIDFromBytes(("BOOK-" + bookId).getBytes()).toString();
-
-        List<Document> documents = List.of(
-                new Document(uuid, profileText, Map.of("bookId", bookId, "profileText", profileText))
-        );
-        vectorStore.add(documents);
+        String uuid = generateUUIDByBookId(bookId);
+        addBookStore(bookId, profileText, uuid);
     }
 
     @Override
     public void update(String bookId, String profileText) {
-        String uuid = UUID.nameUUIDFromBytes(("BOOK-" + bookId).getBytes()).toString();
-
+        String uuid = generateUUIDByBookId(bookId);
         vectorStore.delete(List.of(uuid));
+        addBookStore(bookId, profileText, uuid);
+    }
+
+    private static String generateUUIDByBookId(String bookId) {
+        return UUID.nameUUIDFromBytes(("BOOK-" + bookId).getBytes()).toString();
+    }
+
+    private void addBookStore(String bookId, String profileText, String uuid) {
         Document document = new Document(
                 uuid,
                 profileText,
-                Map.of("bookId", bookId, "profileText", profileText)
+                Map.of("bookId", bookId,
+                        "profileText", profileText
+                )
         );
         vectorStore.add(List.of(document));
     }
