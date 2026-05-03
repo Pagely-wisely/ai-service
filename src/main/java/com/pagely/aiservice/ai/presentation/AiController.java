@@ -2,7 +2,9 @@ package com.pagely.aiservice.ai.presentation;
 
 import com.pagely.aiservice.ai.application.service.BookRecommendationService;
 import com.pagely.aiservice.ai.application.service.BookReportStatisticsService;
+import com.pagely.aiservice.ai.presentation.dto.BookRecommendationResponse;
 import com.pagely.common.response.ApiResponse;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,11 @@ public class AiController {
 
     @GetMapping("/recommend/book/{user_id}")
     public ResponseEntity<ApiResponse> recommendBook(@PathVariable("user_id") UUID userId) {
-        return ApiResponse.ok(bookRecommendationService.recommend(userId));
+        List<BookRecommendationResponse> response = bookRecommendationService.recommend(userId)
+                .stream()
+                .map(BookRecommendationResponse::from)
+                .toList();
+
+        return ApiResponse.ok(response);
     }
 }

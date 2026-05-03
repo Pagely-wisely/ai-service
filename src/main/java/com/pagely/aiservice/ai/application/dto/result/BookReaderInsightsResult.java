@@ -6,6 +6,7 @@ public record BookReaderInsightsResult(
         String bookId,
         int totalReviews,
         Map<String, Double> sentimentDistribution,
-        Map<String, Long> topKeywords
+        Map<String, Long> topKeywords,
+        String summary
 ) {
 }
