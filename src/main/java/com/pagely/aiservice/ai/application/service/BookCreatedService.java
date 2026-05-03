@@ -29,7 +29,7 @@ public class BookCreatedService {
 
         validateProfileText(dto, profileText);
 
-        bookEmbeddingPort.embedBookProfileText(dto.bookId(), profileText);
+        bookEmbeddingPort.embedBookProfileText(dto.bookId(), profileText, dto.title(), dto.author(), dto.category(), dto.description());
     }
 
     private static void validateProfileText(BookProfileGenerateCommand dto, String profileText) {

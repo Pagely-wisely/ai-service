@@ -30,6 +30,12 @@ public class BookProfileService {
                 description,
                 reportAnalysisRepository.findByBookId(bookId)
         );
-        bookEmbeddingPort.update(bookId, updatedProfileText);
+        bookEmbeddingPort.update(
+                bookId,
+                updatedProfileText,
+                title,
+                author,
+                category,
+                description );
     }
 }

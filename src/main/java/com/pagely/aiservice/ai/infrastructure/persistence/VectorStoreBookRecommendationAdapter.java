@@ -1,5 +1,6 @@
 package com.pagely.aiservice.ai.infrastructure.persistence;
 
+import com.pagely.aiservice.ai.application.dto.result.BookRecommendationResult;
 import com.pagely.aiservice.ai.application.port.out.BookRecommendationPort;
 import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -22,20 +24,16 @@ public class VectorStoreBookRecommendationAdapter implements BookRecommendationP
     private final ReportAnalysisRepository reportAnalysisRepository;
 
     @Override
-    public List<String> recommend(UUID userId) {
-        // 유저 벡터 가져오기
+    public List<BookRecommendationResult> recommend(UUID userId) {
         String userVector = getUserVector(userId);
-        if (userVector == null) return List.of();
 
-        // 이미 독후감 썼으면 읽은 적 있음
         List<String> readBookIds = reportAnalysisRepository.findByUserId(userId)
                 .stream()
                 .map(ReportAnalysis::getBookId)
                 .filter(Objects::nonNull)
                 .toList();
 
-        // 읽은책 뺴고 리턴
-        return getSimilarBookIds(userVector, readBookIds);
+        return getSimilarBooks(userVector, readBookIds);
     }
 
     private String getUserVector(UUID userId) {
@@ -52,25 +50,46 @@ public class VectorStoreBookRecommendationAdapter implements BookRecommendationP
         }
     }
 
-    private List<String> getSimilarBookIds(String userVector, List<String> excludeBookIds) {
+    private List<BookRecommendationResult> getSimilarBooks(String userVector, List<String> excludeBookIds) {
         if (excludeBookIds.isEmpty()) {
-            return jdbcTemplate.queryForList("""
-                    SELECT metadata->>'bookId'
+            return jdbcTemplate.query("""
+                    SELECT
+                        metadata->>'bookId' AS bookId,
+                        metadata->>'title' AS title,
+                        metadata->>'author' AS author,
+                        metadata->>'category' AS category
                     FROM book_vector_store
                     WHERE metadata->>'bookId' IS NOT NULL
                     ORDER BY embedding <=> ?::vector
                     LIMIT 5
-                    """, String.class, userVector);
+                    """,
+                    (rs, rowNum) -> new BookRecommendationResult(
+                            rs.getString("bookId"),
+                            rs.getString("title"),
+                            rs.getString("author"),
+                            rs.getString("category")
+                    ),
+                    userVector);
         }
 
-        return jdbcTemplate.queryForList("""
-                SELECT metadata->>'bookId'
+        return jdbcTemplate.query("""
+                SELECT
+                    metadata->>'bookId' AS bookId,
+                    metadata->>'title' AS title,
+                    metadata->>'author' AS author,
+                    metadata->>'category' AS category
                 FROM book_vector_store
                 WHERE metadata->>'bookId' IS NOT NULL
                 AND metadata->>'bookId' != ALL(?)
                 ORDER BY embedding <=> ?::vector
                 LIMIT 5
-                """, String.class,
+                """,
+                (rs, rowNum) -> new BookRecommendationResult(
+                        rs.getString("bookId"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("category")
+                ),
                 excludeBookIds.toArray(new String[0]),
                 userVector);
     }

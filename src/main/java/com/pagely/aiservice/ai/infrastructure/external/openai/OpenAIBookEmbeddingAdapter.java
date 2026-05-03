@@ -19,28 +19,44 @@ public class OpenAIBookEmbeddingAdapter implements BookEmbeddingPort {
     }
 
     @Override
-    public void embedBookProfileText(String bookId, String profileText) {
+    public void embedBookProfileText(String bookId, String profileText,
+                                     String title,
+                                     String author,
+                                     String category,
+                                     String description) {
         String uuid = generateUUIDByBookId(bookId);
-        addBookStore(bookId, profileText, uuid);
+        addBookStore(bookId, profileText,title,author,category,description, uuid);
     }
 
     @Override
-    public void update(String bookId, String profileText) {
+    public void update(String bookId, String profileText,
+                       String title,
+                       String author,
+                       String category,
+                       String description) {
         String uuid = generateUUIDByBookId(bookId);
         vectorStore.delete(List.of(uuid));
-        addBookStore(bookId, profileText, uuid);
+        addBookStore(bookId, profileText,title,author,category,description, uuid);
     }
 
     private static String generateUUIDByBookId(String bookId) {
         return UUID.nameUUIDFromBytes(("BOOK-" + bookId).getBytes()).toString();
     }
 
-    private void addBookStore(String bookId, String profileText, String uuid) {
+    private void addBookStore(String bookId, String profileText,
+                              String title,
+                              String author,
+                              String category,
+                              String description, String uuid) {
         Document document = new Document(
                 uuid,
                 profileText,
                 Map.of("bookId", bookId,
-                        "profileText", profileText
+                        "profileText", profileText,
+                        "title", title,
+                        "author", author,
+                        "category", category,
+                        "description", description
                 )
         );
         vectorStore.add(List.of(document));
