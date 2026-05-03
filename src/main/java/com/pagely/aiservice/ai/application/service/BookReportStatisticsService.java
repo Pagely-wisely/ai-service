@@ -1,26 +1,32 @@
 package com.pagely.aiservice.ai.application.service;
 
 import com.pagely.aiservice.ai.application.dto.result.BookReaderInsightsResult;
+import com.pagely.aiservice.ai.application.port.out.BookStatisticsSummaryPort;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class BookReportStatisticsService {
 
     private final ReportAnalysisRepository reportAnalysisRepository;
+    private final BookStatisticsSummaryPort bookStatisticsSummaryPort;
+
+    public BookReportStatisticsService(
+            ReportAnalysisRepository reportAnalysisRepository,
+            BookStatisticsSummaryPort bookStatisticsSummaryPort) {
+        this.reportAnalysisRepository = reportAnalysisRepository;
+        this.bookStatisticsSummaryPort = bookStatisticsSummaryPort;
+    }
 
     public BookReaderInsightsResult execute(String bookId) {
         List<ReportAnalysis> analysisList =
                 reportAnalysisRepository.findByBookId(bookId);
 
-        // 감성 비율 계산
         Map<String, Double> sentimentDistribution = analysisList.stream()
                 .collect(Collectors.groupingBy(
                         ReportAnalysis::getSentiment,
@@ -30,7 +36,6 @@ public class BookReportStatisticsService {
                         )
                 ));
 
-        // 상위 키워드 추출
         Map<String, Long> topKeywords = analysisList.stream()
                 .filter(a -> a.getKeywordNormalized() != null)
                 .flatMap(a -> a.getKeywordNormalized().stream())
@@ -46,11 +51,18 @@ public class BookReportStatisticsService {
                         LinkedHashMap::new
                 ));
 
+        String summary = bookStatisticsSummaryPort.summarize(
+                analysisList.size(),
+                sentimentDistribution,
+                topKeywords
+        );
+
         return new BookReaderInsightsResult(
                 bookId,
                 analysisList.size(),
                 sentimentDistribution,
-                topKeywords
+                topKeywords,
+                summary
         );
     }
 }
