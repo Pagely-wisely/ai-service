@@ -41,4 +41,15 @@ public class ChatClientConfig {
                         .build())
                 .build();
     }
+
+    @Bean
+    @Qualifier("bookStatisticsChatClient")
+    public ChatClient bookStatisticsChatClient(ChatClient.Builder builder) {
+        return builder
+                .defaultOptions(OpenAiChatOptions.builder()
+                        .model("gpt-4o-mini")
+                        .temperature(0.3)
+                        .build())
+                .build();
+    }
 }
