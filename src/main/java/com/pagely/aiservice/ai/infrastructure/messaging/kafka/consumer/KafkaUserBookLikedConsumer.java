@@ -2,10 +2,10 @@ package com.pagely.aiservice.ai.infrastructure.messaging.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pagely.aiservice.ai.application.dto.command.BookSearchedCommand;
+import com.pagely.aiservice.ai.application.dto.command.BookLikedCommand;
 import com.pagely.aiservice.ai.application.service.UserActionService;
 import com.pagely.aiservice.ai.common.InboxIdempotent;
-import com.pagely.aiservice.ai.infrastructure.messaging.event.BookSearchedEvent;
+import com.pagely.aiservice.ai.infrastructure.messaging.event.BookLikedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -14,30 +14,31 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class KafkaBookSearchedConsumer {
+public class KafkaUserBookLikedConsumer {
 
     private final UserActionService userActionService;
     private final ObjectMapper objectMapper;
 
     @KafkaListener(
-            topics = "book-searched",
+            topics = "book-liked",
             groupId = "ai-service"
     )
-    @InboxIdempotent(topic = "book-searched")
+    @InboxIdempotent(topic = "book-liked")
     public void consume(String strEvent) throws JsonProcessingException {
-        BookSearchedEvent event = objectMapper.readValue(strEvent, BookSearchedEvent.class);
 
-        log.info("BookSearchedEvent 수신: {}", event.getDomainId());
+        BookLikedEvent event = objectMapper.readValue(strEvent, BookLikedEvent.class);
 
-        BookSearchedCommand command = new BookSearchedCommand(
+        log.info("BookLikedEvent 수신: {}", event.getDomainId());
+
+        BookLikedCommand command = new BookLikedCommand(
                 event.getPayload().getUserId(),
                 event.getPayload().getBookId(),
-                event.getPayload().getBookName(),
+                event.getPayload().getTitle(),
                 event.getPayload().getAuthors(),
                 event.getPayload().getCategory(),
-                event.getPayload().getKeyword()
+                event.getPayload().getDescription()
         );
 
-        userActionService.handleBookSearched(command);
+        userActionService.handleBookLiked(command);
     }
 }
