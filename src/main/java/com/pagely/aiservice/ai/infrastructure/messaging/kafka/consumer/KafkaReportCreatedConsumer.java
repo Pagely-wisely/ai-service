@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagely.aiservice.ai.application.dto.command.ReportCreatedCommand;
 import com.pagely.aiservice.ai.application.service.ReportAnalysisService;
+import com.pagely.aiservice.ai.common.InboxIdempotent;
 import com.pagely.aiservice.ai.infrastructure.messaging.event.ReportCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class KafkaReportCreatedConsumer {
             topics = "report-created",
             groupId = "ai-service"
     )
+    @InboxIdempotent(topic = "report-created")
     public void consume(String strEvent) throws JsonProcessingException {
         ReportCreatedEvent event = objectMapper.readValue(strEvent, ReportCreatedEvent.class);
 
