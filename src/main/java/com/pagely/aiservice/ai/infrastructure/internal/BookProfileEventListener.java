@@ -10,7 +10,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
 @RequiredArgsConstructor
-public class BookProfileUpdateEventListener {
+public class BookProfileEventListener {
 
     private final BookProfileService bookProfileService;
 
