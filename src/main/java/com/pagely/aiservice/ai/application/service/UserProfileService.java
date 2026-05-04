@@ -32,7 +32,9 @@ public class UserProfileService {
         List<UserLikedBook> likedBooks = userLikedBookRepository.findByUserId(userId);
         List<UserSearchHistory> userSearchHistories = userSearchHistoryRepository.findByUserId(userId);
         List<ReportAnalysis> reportAnalyses = reportAnalysisRepository.findByUserId(userId);
+
         String userProfileText = userProfileGeneratorPort.generate(likedBooks, userSearchHistories, reportAnalyses);
+
         userEmbeddingPort.update(userId, userProfileText);
     }
 

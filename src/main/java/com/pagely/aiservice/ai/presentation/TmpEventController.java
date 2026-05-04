@@ -2,7 +2,7 @@ package com.pagely.aiservice.ai.presentation;
 
 import com.pagely.aiservice.ai.application.dto.command.BookLikedCommand;
 import com.pagely.aiservice.ai.application.dto.command.BookSearchedCommand;
-import com.pagely.aiservice.ai.application.service.BookCreatedService;
+import com.pagely.aiservice.ai.application.service.BookProfileService;
 import com.pagely.aiservice.ai.application.service.ReportAnalysisService;
 import com.pagely.aiservice.ai.application.service.UserActionService;
 import com.pagely.aiservice.ai.application.service.UserProfileService;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TmpEventController {
 
     private final ReportAnalysisService reportCreatedService;
-    private final BookCreatedService bookCreatedService;
+    private final BookProfileService bookProfileService;
     private final UserActionService userActionService;
     private final UserProfileService userProfileService;
 
@@ -35,7 +35,7 @@ public class TmpEventController {
 
     @GetMapping("/book")
     public String handleBookCreated(@ModelAttribute BookCreatedDto dto) {
-        bookCreatedService.handleBookCreated(dto.toCommand());
+        bookProfileService.initiateBookProfile(dto.toCommand());
         return "success";
     }
 

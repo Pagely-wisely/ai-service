@@ -3,7 +3,7 @@ package com.pagely.aiservice.ai.infrastructure.messaging.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagely.aiservice.ai.application.dto.command.BookProfileGenerateCommand;
-import com.pagely.aiservice.ai.application.service.BookCreatedService;
+import com.pagely.aiservice.ai.application.service.BookProfileService;
 import com.pagely.aiservice.ai.common.InboxIdempotent;
 import com.pagely.aiservice.ai.infrastructure.messaging.event.BookCreatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class KafkaBookCreatedConsumer {
 
-    private final BookCreatedService bookCreatedService;
+    private final BookProfileService bookProfileService;
     private final ObjectMapper objectMapper;
 
     @KafkaListener(
@@ -35,6 +35,6 @@ public class KafkaBookCreatedConsumer {
                 event.getPayload().getCategory(),
                 event.getPayload().getDescription()
         );
-        bookCreatedService.handleBookCreated(command);
+        bookProfileService.initiateBookProfile(command);
     }
 }

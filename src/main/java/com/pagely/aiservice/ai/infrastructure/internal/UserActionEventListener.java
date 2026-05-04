@@ -16,7 +16,7 @@ public class UserActionEventListener {
 
     @Async("aiInternalEventExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleBookLikedStored(UserProfileTextUpdateEvent event) {
+    public void handleUserActionEvent(UserProfileTextUpdateEvent event) {
         userProfileService.generateUserProfile(event.userId());
     }
 }
