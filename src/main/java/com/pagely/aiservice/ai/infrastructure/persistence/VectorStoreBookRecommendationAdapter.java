@@ -2,17 +2,20 @@ package com.pagely.aiservice.ai.infrastructure.persistence;
 
 import com.pagely.aiservice.ai.application.dto.result.BookRecommendationResult;
 import com.pagely.aiservice.ai.application.port.out.BookRecommendationPort;
-import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.domain.model.ReportAnalysis;
 import com.pagely.aiservice.ai.domain.repository.ReportAnalysisRepository;
-import com.pagely.common.exception.BusinessException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -22,75 +25,62 @@ public class VectorStoreBookRecommendationAdapter implements BookRecommendationP
 
     private final JdbcTemplate jdbcTemplate;
     private final ReportAnalysisRepository reportAnalysisRepository;
+    private final VectorStore bookVectorStore;
 
     @Override
     public List<BookRecommendationResult> recommend(UUID userId) {
-        String userVector = getUserVector(userId);
+        List<String> readBookIds = findAlreadyReadBookIds(userId);
+        String profileText = getUserProfileText(userId);
 
-        List<String> readBookIds = reportAnalysisRepository.findByUserId(userId)
+        List<Document> documents = bookVectorStore.similaritySearch(
+                SearchRequest.builder()
+                        .query(profileText)
+                        .topK(5 + readBookIds.size())
+                        .build()
+        );
+
+        return documents.stream()
+                .filter(doc -> {
+                    String bookId = getMetaValue(doc.getMetadata(), "bookId");
+                    return !readBookIds.contains(bookId);
+                })
+                .limit(5)
+                .map(doc -> {
+                    Map<String, Object> meta = doc.getMetadata();
+                    return new BookRecommendationResult(
+                            getMetaValue(meta, "bookId"),
+                            getMetaValue(meta, "title"),
+                            getMetaValue(meta, "author"),
+                            getMetaValue(meta, "category")
+                    );
+                })
+                .toList();
+    }
+
+    private @NonNull List<String> findAlreadyReadBookIds(UUID userId) {
+        return reportAnalysisRepository.findByUserId(userId)
                 .stream()
                 .map(ReportAnalysis::getBookId)
                 .filter(Objects::nonNull)
                 .toList();
-
-        return getSimilarBooks(userVector, readBookIds);
     }
 
-    private String getUserVector(UUID userId) {
-        try {
-            return jdbcTemplate.queryForObject("""
-                    SELECT embedding::text
-                    FROM user_vector_store
-                    WHERE metadata->>'userId' = ?
-                    LIMIT 1
-                    """, String.class, userId.toString());
-        } catch (EmptyResultDataAccessException e) {
-            log.warn("유저 프로필 없음 userId: {}", userId);
-            throw new BusinessException(AiErrorCode.USER_PROFILE_NOT_FOUND, e);
-        }
+    @Nullable
+    private String getUserProfileText(UUID userId) {
+        return jdbcTemplate.queryForObject("""
+                SELECT metadata->>'profileText'
+                FROM user_vector_store
+                WHERE metadata->>'userId' = ?
+                LIMIT 1
+                """, String.class, userId.toString());
     }
 
-    private List<BookRecommendationResult> getSimilarBooks(String userVector, List<String> excludeBookIds) {
-        if (excludeBookIds.isEmpty()) {
-            return jdbcTemplate.query("""
-                    SELECT
-                        metadata->>'bookId' AS bookId,
-                        metadata->>'title' AS title,
-                        metadata->>'author' AS author,
-                        metadata->>'category' AS category
-                    FROM book_vector_store
-                    WHERE metadata->>'bookId' IS NOT NULL
-                    ORDER BY embedding <=> ?::vector
-                    LIMIT 5
-                    """,
-                    (rs, rowNum) -> new BookRecommendationResult(
-                            rs.getString("bookId"),
-                            rs.getString("title"),
-                            rs.getString("author"),
-                            rs.getString("category")
-                    ),
-                    userVector);
+    private String getMetaValue(Map<String, Object> meta, String key) {
+        Object value = meta.get(key);
+        if (value == null) {
+            log.warn("metadata에 '{}' 키가 없습니다. 저장 시 metadata를 확인하세요.", key);
+            return "";
         }
-
-        return jdbcTemplate.query("""
-                SELECT
-                    metadata->>'bookId' AS bookId,
-                    metadata->>'title' AS title,
-                    metadata->>'author' AS author,
-                    metadata->>'category' AS category
-                FROM book_vector_store
-                WHERE metadata->>'bookId' IS NOT NULL
-                AND metadata->>'bookId' != ALL(?)
-                ORDER BY embedding <=> ?::vector
-                LIMIT 5
-                """,
-                (rs, rowNum) -> new BookRecommendationResult(
-                        rs.getString("bookId"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("category")
-                ),
-                excludeBookIds.toArray(new String[0]),
-                userVector);
+        return value.toString();
     }
 }
