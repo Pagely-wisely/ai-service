@@ -20,10 +20,8 @@ public class OpenAiUserEmbeddingAdapter implements UserEmbeddingPort {
 
     @Override
     public void update(UUID userId, String profileText) {
-        // 기존 벡터 삭제
         vectorStore.delete(List.of(userId.toString()));
 
-        // 새 프로필 저장
         Document document = new Document(
                 String.valueOf(userId),
                 profileText,

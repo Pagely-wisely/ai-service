@@ -1,77 +1,36 @@
 package com.pagely.aiservice.ai.infrastructure.external.openai;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagely.aiservice.ai.application.dto.result.ReportContentAnalysisResult;
 import com.pagely.aiservice.ai.application.port.out.ReportAnalysisPort;
-import com.pagely.aiservice.ai.domain.exception.AiErrorCode;
 import com.pagely.aiservice.ai.infrastructure.external.openai.dto.OpenAiReportContentAnalysisResponse;
-import com.pagely.common.exception.BusinessException;
-import java.util.List;
-import java.util.Map;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class OpenAIReportAnalysisAdapter implements ReportAnalysisPort {
 
     private final ChatClient chatClient;
-    private final ObjectMapper objectMapper;
+
+    @Value("classpath:prompts/report-analysis-system.st")
+    private Resource systemPromptResource;
 
     public OpenAIReportAnalysisAdapter(
-            @Qualifier("reportAnalysisChatClient") ChatClient chatClient,
-            ObjectMapper objectMapper) {
+            @Qualifier("reportAnalysisChatClient") ChatClient chatClient) {
         this.chatClient = chatClient;
-        this.objectMapper = objectMapper;
     }
 
     @Override
     public ReportContentAnalysisResult analyze(String reviewText) {
-        String raw = callApi(reviewText);
-        OpenAiReportContentAnalysisResponse response = parse(raw);
-        return toApplicationDto(response);
-    }
-
-    private String callApi(String reviewText) {
-        return chatClient.prompt()
-                .system("""
-                        당신은 도서 독후감에서 키워드를 추출하고 정제하는 전문가입니다.
-                        반드시 JSON 형식으로만 응답하세요. 다른 설명은 포함하지 마세요.
-                        {
-                          "usedKeywords": ["텍스트에 직접 등장한 핵심 단어"],
-                          "refinedKeywords": ["형용사+명사 형태로 정제된 키워드. 예: 지루한 초반, 감동적인 결말"],
-                          "summarized": "해당 도서 독후감을 요약한 내용",
-                          "sentiment": "POSITIVE 또는 NEGATIVE 또는 NEUTRAL"
-                        }
-                        """)
+        OpenAiReportContentAnalysisResponse response = chatClient.prompt()
+                .system(systemPromptResource)
                 .user(reviewText)
                 .call()
-                .content();
-    }
+                .entity(OpenAiReportContentAnalysisResponse.class);
 
-    private OpenAiReportContentAnalysisResponse parse(String raw) {
-        try {
-            String json = raw
-                    .replaceAll("(?s)```json\\s*", "")
-                    .replaceAll("(?s)```\\s*", "")
-                    .trim();
-
-            Map<String, Object> parsed = objectMapper.readValue(
-                    json, new TypeReference<>() {
-                    }
-            );
-
-            return new OpenAiReportContentAnalysisResponse(
-                    (List<String>) parsed.get("usedKeywords"),
-                    (List<String>) parsed.get("refinedKeywords"),
-                    (String) parsed.get("summarized"),
-                    (String) parsed.get("sentiment")
-            );
-        } catch (Exception e) {
-            throw new BusinessException(AiErrorCode.OPENAI_KEYWORD_PARSING_FAILED, e);
-        }
+        return toApplicationDto(response);
     }
 
     private ReportContentAnalysisResult toApplicationDto(OpenAiReportContentAnalysisResponse response) {
