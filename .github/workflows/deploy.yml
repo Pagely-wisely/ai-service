@@ -1,0 +1,62 @@
+name: Deploy ai-service
+
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_REGION: ap-northeast-2
+  SERVICE_NAME: aiservice
+  EC2_USER: ec2-user
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & Push to ECR
+        run: |
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          docker build \
+            --build-arg GPR_USER=${{ secrets.GPR_USER }} \
+            --build-arg GPR_KEY=${{ secrets.GPR_KEY }} \
+            -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.APP_EC2_IP }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            aws ecr get-login-password --region ap-northeast-2 | \
+              docker login --username AWS --password-stdin \
+              ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
+
+            docker stop pagely-ai || true
+            docker rm pagely-ai || true
+
+            docker pull ${{ env.IMAGE_URI }}
+
+            docker run -d \
+              --name pagely-ai \
+              --network pagely-network \
+              -p 8083:8083 \
+              --env-file /opt/app/infra-repo/.env \
+              -e SPRING_PROFILES_ACTIVE=prod \
+              -e OPENAI_KEY=${{ secrets.OPENAI_KEY }} \
+              ${{ env.IMAGE_URI }}
