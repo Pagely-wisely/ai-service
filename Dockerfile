@@ -7,7 +7,7 @@ ENV GPR_KEY=$GPR_KEY
 COPY . .
 RUN gradle clean bootJar -x test
 
-FROM openjdk:21-alpine
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar ai-service.jar
 ENTRYPOINT ["java", "-jar", "ai-service.jar", "--spring.profiles.active=prod"]
