@@ -1,0 +1,25 @@
+spring:
+  config:
+    import: optional:classpath:.env[.properties]
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_AI_PORT}/${AI_DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 19021
+
+management:
+  tracing:
+    export:
+      enabled: false
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8000/eureka

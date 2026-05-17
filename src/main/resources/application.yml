@@ -1,19 +1,13 @@
 spring:
+  profiles:
+    default: local
+
   application:
-    name: ai-service
+    name: aiservice
 
   docker:
     compose:
       enabled: false
-
-  config:
-    import: optional:classpath:.env[.properties]
-
-  datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_AI_PORT}/${AI_DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -30,13 +24,11 @@ spring:
     locations: classpath:db/migration
 
   kafka:
-    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: false
-
     consumer:
       group-id: ai-service
       auto-offset-reset: earliest
@@ -49,7 +41,7 @@ spring:
         index-type: HNSW
         distance-type: COSINE_DISTANCE
         dimensions: 1536
-        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        max-document-batch-size: 10000
     openai:
       api-key: ${OPENAI_KEY}
       chat:
@@ -59,19 +51,7 @@ spring:
         options:
           model: text-embedding-ada-002
 
-server:
-  port: 19021
-
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8000/eureka
-
 management:
-  tracing:
-    export:
-      enabled: false
-
   endpoints:
     web:
       exposure:
