@@ -1,16 +1,11 @@
 package com.pagely.aiservice.ai.infrastructure.external.openai.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public record OpenAiReportContentAnalysisResponse(
-        List<String> usedKeywords,
-        List<String> refinedKeywords,
-        String summarized,
-        String sentiment
-) {
-    public static OpenAiReportContentAnalysisResponse empty() {
-        return new OpenAiReportContentAnalysisResponse(
-                List.of(), List.of(), "", "NEUTRAL"
-        );
-    }
-}
+        @JsonProperty("usedKeywords")    List<String> usedKeywords,
+        @JsonProperty("refinedKeywords") List<String> refinedKeywords,
+        @JsonProperty("summarized")      String summarized,
+        @JsonProperty("sentiment")       String sentiment
+) {}
