@@ -1,13 +1,17 @@
-FROM gradle:8.5-jdk21-alpine AS builder
-WORKDIR /app
+## Build Stage
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /workspace
+COPY . .
 ARG GPR_USER
 ARG GPR_KEY
-ENV GPR_USER=$GPR_USER
-ENV GPR_KEY=$GPR_KEY
-COPY . .
-RUN gradle clean bootJar -x test
+ENV GPR_USER=${GPR_USER}
+ENV GPR_KEY=${GPR_KEY}
+RUN chmod +x gradlew
+RUN ./gradlew bootJar --no-daemon -Pgpr.user="${GPR_USER}" -Pgpr.key="${GPR_KEY}"
 
+## Run Stage
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar ai-service.jar
-ENTRYPOINT ["java", "-jar", "ai-service.jar", "--spring.profiles.active=prod"]
+COPY --from=builder /workspace/build/libs/*.jar app.jar
+EXPOSE 19021
+ENTRYPOINT ["java","-jar","/app/app.jar"]
