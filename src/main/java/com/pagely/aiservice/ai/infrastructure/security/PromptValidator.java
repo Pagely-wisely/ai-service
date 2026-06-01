@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PromptValidator {
+public class PromptValidator implements PromptValidationRule {
 
     private final List<PromptValidationRule> rules;
 
@@ -13,8 +13,7 @@ public class PromptValidator {
         this.rules = rules;
     }
 
-    public String validate(String input) {
+    public void validate(String input) {
         rules.forEach(rule -> rule.validate(input));
-        return input.strip();
     }
 }
