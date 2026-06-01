@@ -52,4 +52,15 @@ public class ChatClientConfig {
                         .build())
                 .build();
     }
+
+    @Bean
+    @Qualifier("judgeChatClient")
+    public ChatClient judgeChatClient(ChatClient.Builder builder) {
+        return builder
+                .defaultOptions(OpenAiChatOptions.builder()
+                        .model("gpt-4o")        // Judge는 정확한 평가가 중요 → mini 대신 4o
+                        .temperature(0.0)        // 일관된 판단을 위해 0.0 고정
+                        .build())
+                .build();
+    }
 }
